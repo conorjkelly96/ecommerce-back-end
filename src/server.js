@@ -17,7 +17,7 @@ app.use(routes);
 const init = async () => {
   try {
     //  force true deletes all data from db
-    await connection.sync({ force: true });
+    await connection.sync({ force: false });
 
     app.listen(PORT, () =>
       console.log(`Server running on http://localhost:${PORT}`)

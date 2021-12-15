@@ -9,10 +9,25 @@ const router = Router();
 router.get("/", async (req, res) => {
   // find all tags
   // be sure to include its associated Product data
+
   try {
-    console.log("getAllTags");
+    const data = await Tag.findAll({
+      include: [
+        {
+          model: Product,
+        },
+      ],
+    });
+
+    if (data) {
+      return res.json({ success: true, data });
+    }
+
+    return res
+      .status(404)
+      .json({ success: false, error: "Tag does not exist" });
   } catch (error) {
-    logError("GET location", error.message);
+    logError("GET Category", error.message);
     return res
       .status(500)
       .json({ success: false, error: "Failed to send response" });

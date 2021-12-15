@@ -18,6 +18,8 @@ router.get("/", async (req, res) => {
       ],
     });
 
+    // console.log(data);
+
     if (data) {
       return res.json({ success: true, data });
     }
@@ -26,7 +28,7 @@ router.get("/", async (req, res) => {
       .status(404)
       .json({ success: false, error: "Category does not exist" });
   } catch (error) {
-    logError("GET location", error.message);
+    logError("GET Category", error.message);
     return res
       .status(500)
       .json({ success: false, error: "Failed to send response" });
@@ -37,9 +39,23 @@ router.get("/:id", async (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
   try {
-    console.log("getCategoryByID");
+    const data = await Category.findByPk(req.params.id, {
+      include: [
+        {
+          model: Product,
+        },
+      ],
+    });
+
+    if (data) {
+      return res.json({ success: true, data });
+    }
+
+    return res
+      .status(404)
+      .json({ success: false, error: "Category does not exist" });
   } catch (error) {
-    logError("GET location", error.message);
+    logError("GET Category", error.message);
     return res
       .status(500)
       .json({ success: false, error: "Failed to send response" });
@@ -49,9 +65,19 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   // create a new category
   try {
-    console.log("createCategory");
+    console.log(req.body);
+    const { category_name } = req.body;
+
+    if (category_name) {
+      await Category.create({ category_name });
+      return res.json({ success: true, data: "Created Category" });
+    }
+
+    return res
+      .status(400)
+      .json({ success: false, error: "Please provide the required fields" });
   } catch (error) {
-    logError("GET location", error.message);
+    console.log("POST category", error.message);
     return res
       .status(500)
       .json({ success: false, error: "Failed to send response" });
@@ -63,7 +89,7 @@ router.put("/:id", async (req, res) => {
   try {
     console.log("updateCategoryByID");
   } catch (error) {
-    logError("GET location", error.message);
+    logError("GET Category", error.message);
     return res
       .status(500)
       .json({ success: false, error: "Failed to send response" });
@@ -75,7 +101,7 @@ router.delete("/:id", async (req, res) => {
   try {
     console.log("deleteCategoryByID");
   } catch (error) {
-    logError("GET location", error.message);
+    logError("GET Category", error.message);
     return res
       .status(500)
       .json({ success: false, error: "Failed to send response" });
