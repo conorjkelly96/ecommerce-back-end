@@ -4,7 +4,8 @@
   "description": "E-Commerce Back End application leveraging sequelize ORM for database management.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodemon server.js",
+    "seed": "node src/seeds/index.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,8 @@
     "express": "^4.17.1",
     "mysql2": "^2.3.3",
     "sequelize": "^6.12.0-beta.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
