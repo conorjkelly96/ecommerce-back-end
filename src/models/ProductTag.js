@@ -16,10 +16,18 @@ ProductTag.init(
     productId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "product",
+        key: "id",
+      },
     },
     tagId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "tag",
+        key: "id",
+      },
     },
   },
   {
