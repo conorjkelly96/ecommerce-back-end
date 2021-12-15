@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { logError } = require("../../helpers/utils");
 
 const { Category, Product } = require("../../models");
 
@@ -18,15 +19,13 @@ router.get("/", async (req, res) => {
       ],
     });
 
-    // console.log(data);
-
     if (data) {
       return res.json({ success: true, data });
     }
 
     return res
       .status(404)
-      .json({ success: false, error: "Category does not exist" });
+      .json({ success: false, error: "Product does not exist" });
   } catch (error) {
     logError("GET Category", error.message);
     return res
@@ -65,7 +64,6 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   // create a new category
   try {
-    console.log(req.body);
     const { category_name } = req.body;
 
     if (category_name) {
@@ -87,7 +85,12 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   // update a category by its `id` value
   try {
-    console.log("updateCategoryByID");
+    const { id, category_name } = req.body;
+
+    if (id && category_name) {
+      await Category.update({ category_name });
+      return res.json({ success: true, data: "Updated Category" });
+    }
   } catch (error) {
     logError("GET Category", error.message);
     return res
@@ -99,9 +102,14 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   // delete a category by its `id` value
   try {
-    console.log("deleteCategoryByID");
+    await Category.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    return res.json({ success: true, data: "Deleted Category" });
   } catch (error) {
-    logError("GET Category", error.message);
+    logError("DELETE Category", error.message);
     return res
       .status(500)
       .json({ success: false, error: "Failed to send response" });

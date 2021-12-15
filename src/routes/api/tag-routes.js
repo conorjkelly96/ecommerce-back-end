@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { logError } = require("../../helpers/utils");
 
 const { Tag, Product, ProductTag } = require("../../models");
 
@@ -38,9 +39,23 @@ router.get("/:id", async (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
   try {
-    console.log("getTagByID");
+    const data = await Tag.findByPk(req.params.id, {
+      include: [
+        {
+          model: Product,
+        },
+      ],
+    });
+
+    if (data) {
+      return res.json({ success: true, data });
+    }
+
+    return res
+      .status(404)
+      .json({ success: false, error: "Tag does not exist" });
   } catch (error) {
-    logError("GET location", error.message);
+    logError("GET Category", error.message);
     return res
       .status(500)
       .json({ success: false, error: "Failed to send response" });
