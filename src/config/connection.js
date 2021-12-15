@@ -13,9 +13,6 @@ const dbOptions = {
   logging: false,
 };
 
-// console.log(dbOptions);
-console.log("PASSWORD", process.env.DB_PASSWORD);
-
 const sequelize = new Sequelize(dbName, dbUser, dbPassword, dbOptions);
 
 module.exports = sequelize;
