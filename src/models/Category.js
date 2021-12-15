@@ -20,9 +20,11 @@ Category.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    categoryName: {
+    category_name: {
       type: DataTypes.STRING,
       allowNull: false,
+      // testing default null value - ERRNO: 1067 / 1364
+      // defaultValue: null,
     },
   },
   {

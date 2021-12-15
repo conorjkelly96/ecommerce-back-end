@@ -4,7 +4,7 @@
   "description": "E-Commerce Back End application leveraging sequelize ORM for database management.",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon server.js",
+    "dev": "nodemon src/server.js",
     "seed": "node src/seeds/index.js",
     "start": "node src/server.js"
   },
