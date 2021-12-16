@@ -85,11 +85,22 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   // update a tag's name by its `id` value
-
   try {
-    console.log("updateTagById");
+    const { category_name } = req.body;
+
+    const { id } = req.params;
+    console.log(req.params);
+    console.log(req.body);
+
+    if (id && category_name) {
+      await Category.update(
+        { category_name: category_name },
+        { where: { id: id } }
+      );
+      return res.json({ success: true, data: "Updated Category" });
+    }
   } catch (error) {
-    logError("GET location", error.message);
+    logError("GET Category", error.message);
     return res
       .status(500)
       .json({ success: false, error: "Failed to send response" });
