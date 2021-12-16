@@ -67,7 +67,7 @@ router.post("/", async (req, res) => {
     const { tag_name } = req.body;
 
     if (tag_name) {
-      await Category.create({ tag_name });
+      await Tag.create({ tag_name });
       return res.json({ success: true, data: "Tag Category" });
     }
 
@@ -90,7 +90,7 @@ router.put("/:id", async (req, res) => {
     const { id } = req.params;
 
     if (id && tag_name) {
-      await Category.update({ tag_name: tag_name }, { where: { id: id } });
+      await Tag.update({ tag_name: tag_name }, { where: { id: id } });
       return res.json({ success: true, data: "Updated Tag" });
     }
   } catch (error) {
@@ -104,9 +104,14 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   // delete on tag by its `id` value
   try {
-    console.log("deleteTagById");
+    await Tag.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    return res.json({ success: true, data: "Deleted tag" });
   } catch (error) {
-    logError("GET location", error.message);
+    logError("DELETE Tag", error.message);
     return res
       .status(500)
       .json({ success: false, error: "Failed to send response" });
