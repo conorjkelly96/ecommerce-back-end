@@ -10,7 +10,6 @@ const router = Router();
 router.get("/", async (req, res) => {
   // find all tags
   // be sure to include its associated Product data
-
   try {
     const data = await Tag.findAll({
       include: [
@@ -86,18 +85,13 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   // update a tag's name by its `id` value
   try {
-    const { category_name } = req.body;
+    const { tag_name } = req.body;
 
     const { id } = req.params;
-    console.log(req.params);
-    console.log(req.body);
 
-    if (id && category_name) {
-      await Category.update(
-        { category_name: category_name },
-        { where: { id: id } }
-      );
-      return res.json({ success: true, data: "Updated Category" });
+    if (id && tag_name) {
+      await Category.update({ tag_name: tag_name }, { where: { id: id } });
+      return res.json({ success: true, data: "Updated Tag" });
     }
   } catch (error) {
     logError("GET Category", error.message);
