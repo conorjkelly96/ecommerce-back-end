@@ -63,11 +63,20 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  // create a new tag
+  // create a new category
   try {
-    console.log("createTag");
+    const { tag_name } = req.body;
+
+    if (tag_name) {
+      await Category.create({ tag_name });
+      return res.json({ success: true, data: "Tag Category" });
+    }
+
+    return res
+      .status(400)
+      .json({ success: false, error: "Please provide the required fields" });
   } catch (error) {
-    logError("GET location", error.message);
+    console.log("POST category", error.message);
     return res
       .status(500)
       .json({ success: false, error: "Failed to send response" });
