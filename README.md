@@ -42,5 +42,5 @@ If you wish to run the application locally, run the following commands once the 
 ## Sample Responses
 
 ```json
-
+{}
 ```
