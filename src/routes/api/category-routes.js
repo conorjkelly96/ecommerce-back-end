@@ -88,8 +88,6 @@ router.put("/:id", async (req, res) => {
     const { category_name } = req.body;
 
     const { id } = req.params;
-    console.log(req.params);
-    console.log(req.body);
 
     if (id && category_name) {
       await Category.update(
