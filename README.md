@@ -44,3 +44,7 @@ If you wish to run the application locally, run the following commands once the 
 ```json
 {}
 ```
+
+## Usage
+
+This application will allow users to CREATE, READ, UPDATE and DELETE tags, products & categories.
