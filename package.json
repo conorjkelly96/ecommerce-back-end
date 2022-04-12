@@ -1,0 +1,31 @@
+{
+  "name": "ecommerce-back-end",
+  "version": "1.0.0",
+  "description": "E-Commerce Back End application leveraging sequelize ORM for database management.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "seed": "node src/seeds/index.js",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/conorjkelly96/ecommerce-back-end.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/conorjkelly96/ecommerce-back-end/issues"
+  },
+  "homepage": "https://github.com/conorjkelly96/ecommerce-back-end#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.12.0-beta.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
